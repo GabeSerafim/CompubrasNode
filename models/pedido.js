@@ -24,3 +24,5 @@ const Pedido = sequelize.define('pedido',{
         allowNull: false
     }
 })
+
+module.exports = Pedido;
