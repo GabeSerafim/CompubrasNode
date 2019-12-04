@@ -5,7 +5,8 @@ const Pedido = sequelize.define('pedido',{
     CodPedido: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        autoIncrement: true
+        autoIncrement: true,
+        primaryKey: true
     },
     PrazoEntrega: {
         type: Sequelize.DATE,

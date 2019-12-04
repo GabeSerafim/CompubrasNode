@@ -5,7 +5,8 @@ const Produto = sequelize.define('produto',{
     CodProduto: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        autoIncrement: true
+        autoIncrement: true,
+        primaryKey: true
     },
     Descricao: {
         type: Sequelize.STRING(100),

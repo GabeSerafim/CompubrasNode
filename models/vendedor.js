@@ -1,26 +1,25 @@
 const Sequelize = require('sequelize');
-
 const sequelize = require('../utils/database');
 
-const ItemPedido = sequelize.define('itempedido',{
-    CodItemPedido: {
+const Vendedor = sequelize.define('vendedor',{
+    CodVendedor:{
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncremente: true,
         primaryKey: true
     },
-    CodPedido: {
-        type: Sequelize.INTEGER,
+    Nome:{
+        type: Sequelize.STRING(45),
         allowNull: false
     },
-    CodProduto: {
-        type: Sequelize.INTEGER,
+    SalarioFixo:{
+        type: Sequelize.DECIMAL(10,2),
         allowNull: false
     },
-    Quantidade: {
-        type: Sequelize.INTEGER,
+    FaixaComissao:{
+        type: Sequelize.ENUM('A','B',"C","D"),
         allowNull: false
     }
 })
 
-module.exports = ItemPedido;
+module.exports = Vendedor;
