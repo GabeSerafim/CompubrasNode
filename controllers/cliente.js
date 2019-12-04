@@ -1,9 +1,9 @@
 let Cliente = require('../models/cliente')
 
 exports.getAll = (req, res, next) => {
-    Cliente.fetchAll()
-    .then(([rows,tableData]) => {
-        res.json(rows)
+    Cliente.findAll()
+    .then(products => {
+        res.json(products)
     })
     .catch( err => {
         console.log(err);
@@ -11,13 +11,31 @@ exports.getAll = (req, res, next) => {
 }
 
 exports.addCliente = (req, res, next) => {
-    const cliente = new Cliente(null, req.body.nome, req.body.endereco, req.body.cidade, req.body.cep, req.body.uf, req.body.iE);
-    cliente.save();
+    Cliente.create({
+        nome: req.body.nome,
+        endereco: req.body.endereco,
+        cidade: req.body.cidade,
+        cep: req.body.cep,
+        uf: req.body.uf,
+        iE: req.body.iE
+    })
+    .then(cliente => res.json(cliente))
+    .catch(err => console.log(err));
 }
 
 exports.getById = (req, res, next) => {
-    Cliente.getById(req.params.id)
-        .then(([cliente]) => {
+    Cliente.findByPk(req.params.id)
+        .then((cliente) => {
+            res.json(cliente)
+        })
+        .catch(err => {
+            console.log(err);
+        });
+}
+
+exports.getByName = (req,res,next) =>{
+    Cliente.findAll({where: {nome: req.params.nome}})
+        .then((cliente) => {
             res.json(cliente)
         })
         .catch(err => {

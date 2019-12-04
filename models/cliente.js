@@ -1,29 +1,38 @@
-module.exports = class Cliente {
-    constructor(codCliente, nome, endereco, cidade, cep, uf, iE){
-        this.codCliente = codCliente;
-        this.nome = nome;
-        this.endereco = endereco;
-        this.cidade = cidade;
-        this.cep = cep;
-        this.uf = uf;
-        this.iE = iE;
-    }
+const Sequelize = require('sequelize');
 
-    save(){
-        return db.execute("INSERT INTO cliente (nome, endereco, cidade, cep, uf, iE) VALUES (?, ?, ?, ?, ?, ?)",
-        [this.nome, this.endereco, this.cidade, this.cep, this.uf, this.iE])
-    }
+const sequelize = require('../utils/database');
 
-    static deleteById(id){
-
+const Cliente = sequelize.define('cliente', {
+    codCliente: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        allowNull: false,
+        primaryKey: true
+    },
+    nome: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    endereco: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    cidade: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    cep: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    uf: {
+        type: Sequelize.CHAR,
+        allowNull: false
+    },
+    iE: {
+        type: Sequelize.STRING,
+        allowNull: false
     }
+})
 
-    static fetchAll(){
-        return db.execute("SELECT * FROM cliente")
-    }
-
-    static getById(id){
-        return db.execute("SELECT * FROM cliente WHERE cliente.codCliente = ?",
-        [id])
-    }
-}
+module.exports = Cliente;
