@@ -3,8 +3,10 @@ let Pedido = require('../models/pedido');
 exports.getAll = (req,res,next) => {
     Pedido.findAll()
     .then(pedido => res.json(pedido))
-    .catch(err => console.log(err)
-    )
+    .catch(err => {
+        err.statusCode = 500;
+        next(err);
+    })
 }
 
 exports.addPedido = (req,res,next) => {
@@ -16,25 +18,37 @@ exports.addPedido = (req,res,next) => {
         CodVendedor: req.body.CodVendedor
     })
     .then(pedido => res.json(pedido))
-    .catch(err => console.log(err))
+    .catch(err => {
+        err.statusCode = 500;
+        next(err);
+    })
 }
 
 exports.getById = (req,res,next) => {
     Pedido.findByPk(req.params.id)
     .then(pedido => res.json(pedido))
-    .catch(err => console.log(err))
+    .catch(err => {
+        err.statusCode = 500;
+        next(err);
+    })
 }
 
 exports.getByCliente = (req,res,next) => {
     Pedido.findAll({where: {CodCliente: req.params.codCliente}})
     .then(pedido => res.json(pedido))
-    .catch(err => console.log(err))
+    .catch(err => {
+        err.statusCode = 500;
+        next(err);
+    })
 }
 
 exports.getByVendedor = (req,res,next) => {
     Pedido.findAll({where: {CodVendedor: req.params.codVendedor}})
     .then(pedido => res.json(pedido))
-    .catch(err => console.log(err))
+    .catch(err => {
+        err.statusCode = 500;
+        next(err);
+    })
 }
 
 exports.putPedido = (req,res,next) => {
@@ -48,7 +62,10 @@ exports.putPedido = (req,res,next) => {
         return pedido.save()
     })
     .then(pedido => res.json(pedido))
-    .catch(err => console.log(err))
+    .catch(err => {
+        err.statusCode = 500;
+        next(err);
+    })
 }
 
 exports.delPedido = (req,res,next) => {
@@ -57,5 +74,8 @@ exports.delPedido = (req,res,next) => {
         return pedido.destroy()
     })
     .then(pedido => res.json(pedido))
-    .catch(err => console.log(err))
+    .catch(err => {
+        err.statusCode = 500;
+        next(err);
+    })
 }

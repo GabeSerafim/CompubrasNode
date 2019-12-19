@@ -6,18 +6,18 @@ exports.getAll = (req, res, next) => {
     .then(products => {
         res.json(products)
     })
-    .catch( err => {
-        console.log(err);
+    .catch(err => {
+        err.statusCode = 500;
+        next(err);
     });
 }
 
 exports.addCliente = (req, res, next) => {
     const errors = validationResult(req);
     if(!errors.isEmpty()){
-        return res.status(422).json({
-            message: 'Validation Failed',
-            errors: errors.array()
-        })
+        const error = new Error('Validation failed, entered data is incorrect');
+        error.statusCode = 422;
+        throw error;
     }
     Cliente.create({
         nome: req.body.nome,
@@ -28,7 +28,10 @@ exports.addCliente = (req, res, next) => {
         iE: req.body.iE
     })
     .then(cliente => res.status(201).json(cliente))
-    .catch(err => console.log(err));
+    .catch(err => {
+        err.statusCode = 500;
+        next(err);
+    });
 }
 
 exports.getById = (req, res, next) => {
@@ -37,7 +40,8 @@ exports.getById = (req, res, next) => {
             res.json(cliente)
         })
         .catch(err => {
-            console.log(err);
+            err.statusCode = 500;
+            next(err);
         });
 }
 
@@ -47,7 +51,8 @@ exports.getByName = (req,res,next) =>{
             res.json(cliente)
         })
         .catch(err => {
-            console.log(err);
+            err.statusCode = 500;
+            next(err);
         });
 }
 
@@ -65,7 +70,8 @@ exports.putCliente = (req, res, next) => {
         })
         .then(cliente => res.json(cliente))
         .catch(err => {
-            console.log(err);
+            err.statusCode = 500;
+            next(err);
         });
 }
 
@@ -76,6 +82,7 @@ exports.delCliente = (req, res, next) => {
         })
         .then(res => res.json(res))
         .catch(err => {
-            console.log(err);
+            err.statusCode = 500;
+            next(err);
         });
 }
