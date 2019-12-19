@@ -1,4 +1,5 @@
 let Cliente = require('../models/cliente')
+const {validationResult} = require('express-validator')
 
 exports.getAll = (req, res, next) => {
     Cliente.findAll()
@@ -11,6 +12,13 @@ exports.getAll = (req, res, next) => {
 }
 
 exports.addCliente = (req, res, next) => {
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        return res.status(422).json({
+            message: 'Validation Failed',
+            errors: errors.array()
+        })
+    }
     Cliente.create({
         nome: req.body.nome,
         endereco: req.body.endereco,
@@ -19,7 +27,7 @@ exports.addCliente = (req, res, next) => {
         uf: req.body.uf,
         iE: req.body.iE
     })
-    .then(cliente => res.json(cliente))
+    .then(cliente => res.status(201).json(cliente))
     .catch(err => console.log(err));
 }
 

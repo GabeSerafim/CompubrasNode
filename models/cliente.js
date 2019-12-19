@@ -26,7 +26,7 @@ const Cliente = sequelize.define('cliente', {
         allowNull: false
     },
     uf: {
-        type: Sequelize.CHAR,
+        type: Sequelize.CHAR(2),
         allowNull: false
     },
     iE: {
