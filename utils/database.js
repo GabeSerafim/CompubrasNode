@@ -4,7 +4,7 @@ const sequelize = new Sequelize('compubras','root','root',{
     host:'localhost',
     define: {
         timestamps: false,
-        freezeTableName: true
+        freezeTableName: true,
     }
 })
 

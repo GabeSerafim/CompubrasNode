@@ -6,7 +6,6 @@ const bodyParser = require('body-parser')
 const root = require('./utils/path');
 const sequelize = require('./utils/database');
 const routes = require('./routes/index.routes.js');
-
 const app = express();
 
 app.use(bodyParser.json())
