@@ -3,8 +3,8 @@ const {validationResult} = require('express-validator')
 
 exports.getAll = (req, res, next) => {
     Cliente.findAll()
-    .then(products => {
-        res.json(products)
+    .then(cliente => {
+        res.json(cliente)
     })
     .catch(err => {
         err.statusCode = 500;
