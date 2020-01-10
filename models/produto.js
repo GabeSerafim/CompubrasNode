@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const sequelize = require('../utils/dataase');
+const sequelize = require('../utils/database');
 
 const Produto = sequelize.define('produto',{
     CodProduto: {
